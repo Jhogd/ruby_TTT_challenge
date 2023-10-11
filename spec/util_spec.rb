@@ -41,10 +41,10 @@ class Test_Game_logic < Test::Unit::TestCase
     pos2 = 1
     pos3 = 2
     pos4 = 1
-    @game.make_move("X", pos1, pos2)
-    @game.make_move("O", pos3, pos4)
-    @game.make_move("X", pos1, pos3)
-    @game.make_move("O", pos3, pos1)
+    @game.make_move!("X", pos1, pos2)
+    @game.make_move!("O", pos3, pos4)
+    @game.make_move!("X", pos1, pos3)
+    @game.make_move!("O", pos3, pos1)
     assert_equal("X", @game.board[pos1][pos2], "makes move")
     assert_equal("O", @game.board[pos3][pos4], "makes move again")
     assert_equal("X", @game.board[pos1][pos3], "makes move again")
@@ -53,30 +53,30 @@ class Test_Game_logic < Test::Unit::TestCase
 
   def test_board_full
     assert_false(@game.board_full?(@game.board), "board is empty")
-    @game.make_move("X", 0, 1)
-    @game.make_move("O", 1, 1)
+    @game.make_move!("X", 0, 1)
+    @game.make_move!("O", 1, 1)
     assert_false(@game.board_full?(@game.board), "board has two filled spots but not full")
     fill_board(@game.board, "X")
     assert_true(@game.board_full?(@game.board), "board is full")
   end
 
   def test_board_empty
-    @game.make_move("X", 0, 1)
+    @game.make_move!("X", 0, 1)
     assert_false(@game.board_empty?(@game.board), "not empty")
-    @game.make_move("O", 1, 1)
+    @game.make_move!("O", 1, 1)
     assert_false(@game.board_empty?(@game.board), "multiple moves")
-    @game.make_move(" ", 0, 1)
-    @game.make_move(" ", 1, 1)
+    @game.make_move!(" ", 0, 1)
+    @game.make_move!(" ", 1, 1)
     assert_true(@game.board_empty?(@game.board), "empty")
   end
 
   def test_win_hor_top_row
     player = "X"
     assert_false(@game.check_win_hor_vert(@game.board, player), "no moves")
-    @game.make_move(player, 0, 0)
-    @game.make_move(player, 0, 1)
+    @game.make_move!(player, 0, 0)
+    @game.make_move!(player, 0, 1)
     assert_false(@game.check_win_hor_vert(@game.board, player), "two moves")
-    @game.make_move(player, 0, 2)
+    @game.make_move!(player, 0, 2)
     assert_true(@game.check_win_hor_vert(@game.board, player), "top row full of X")
 
   end
@@ -84,66 +84,66 @@ class Test_Game_logic < Test::Unit::TestCase
   def test_win_hor_middle_row
     player = "O"
     assert_false(@game.check_win_hor_vert(@game.board, player), "no moves")
-    @game.make_move(player, 1, 0)
-    @game.make_move(player, 1, 1)
+    @game.make_move!(player, 1, 0)
+    @game.make_move!(player, 1, 1)
     assert_false(@game.check_win_hor_vert(@game.board, player), "two moves")
-    @game.make_move("X", 1, 2)
+    @game.make_move!("X", 1, 2)
     assert_false(@game.check_win_hor_vert(@game.board, player), "X takes the spot instead")
-    @game.make_move(player, 1, 2)
+    @game.make_move!(player, 1, 2)
     assert_true(@game.check_win_hor_vert(@game.board, player), "second row full of O")
     end
   def test_win_vert_first_col
     player = "X"
     assert_false(@game.check_win_hor_vert(@game.board.transpose, player), "no moves")
-    @game.make_move(player, 0, 0)
-    @game.make_move(player, 1, 0)
+    @game.make_move!(player, 0, 0)
+    @game.make_move!(player, 1, 0)
     assert_false(@game.check_win_hor_vert(@game.board.transpose, player), "two moves")
-    @game.make_move("O", 2, 0)
+    @game.make_move!("O", 2, 0)
     assert_false(@game.check_win_hor_vert(@game.board.transpose, player), "O takes the spot instead")
-    @game.make_move(player, 2, 0)
+    @game.make_move!(player, 2, 0)
     assert_true(@game.check_win_hor_vert(@game.board.transpose, player), "first col full of X")
   end
 
   def test_win_diag
     player = "O"
     assert_false(@game.check_win_diags(@game.board, player), "no moves")
-    @game.make_move(player, 0, 0)
-    @game.make_move(player, 1, 1)
+    @game.make_move!(player, 0, 0)
+    @game.make_move!(player, 1, 1)
     assert_false(@game.check_win_diags(@game.board, player), "2/3rd of diagonal")
-    @game.make_move("X", 2, 2)
+    @game.make_move!("X", 2, 2)
     assert_false(@game.check_win_diags(@game.board, player), "X takes the spot instead")
-    @game.make_move(player, 2, 2)
+    @game.make_move!(player, 2, 2)
     assert_true(@game.check_win_diags(@game.board, player), "diag is full of O")
   end
 
   def test_win_inverse_diag
     player = "X"
     assert_false(@game.check_win_diags(@game.board, player), "no moves")
-    @game.make_move(player, 0, 2)
-    @game.make_move(player, 1, 1)
+    @game.make_move!(player, 0, 2)
+    @game.make_move!(player, 1, 1)
     assert_false(@game.check_win_diags(@game.board, player), "2/3rd of diagonal")
-    @game.make_move("O", 2, 0)
+    @game.make_move!("O", 2, 0)
     assert_false(@game.check_win_diags(@game.board, player), "O takes the spot instead")
-    @game.make_move(player, 2, 0)
+    @game.make_move!(player, 2, 0)
     assert_true(@game.check_win_diags(@game.board, player), "diag is full of X")
   end
 
   def test_check_win
     player = "O"
     assert_false(@game.check_win(@game.board, player), "no moves")
-    @game.make_move(player, 0, 0)
-    @game.make_move(player, 1, 1)
+    @game.make_move!(player, 0, 0)
+    @game.make_move!(player, 1, 1)
     assert_false(@game.check_win(@game.board, player), "2 moves no win")
-    @game.make_move(player, 0, 2)
+    @game.make_move!(player, 0, 2)
     assert_false(@game.check_win(@game.board, player), "3 moves no win")
-    @game.make_move(player, 2, 0)
+    @game.make_move!(player, 2, 0)
     assert_true(@game.check_win(@game.board, player), "reverse diag win")
-    @game.make_move("X", 2, 0)
-    @game.make_move(player, 0, 1)
-    @game.make_move(player, 0, 2)
+    @game.make_move!("X", 2, 0)
+    @game.make_move!(player, 0, 1)
+    @game.make_move!(player, 0, 2)
     assert_true(@game.check_win(@game.board, player), "horizontal win")
-    @game.make_move("X", 0, 2)
-    @game.make_move(player, 2, 1)
+    @game.make_move!("X", 0, 2)
+    @game.make_move!(player, 2, 1)
     assert_true(@game.check_win(@game.board, player), "vertical win")
   end
 
@@ -159,25 +159,25 @@ class Test_Game_logic < Test::Unit::TestCase
   def test_valid_move
     assert_false(@game.valid_move?([3, 3], @game.board), "not valid")
     assert_false(@game.valid_move?([3], @game.board), "not enough input")
-    @game.make_move("X", 1 , 1)
+    @game.make_move!("X", 1 , 1)
     assert_false(@game.valid_move?([1, 1], @game.board), "already taken")
   end
 
   def test_terminal_x
     player = "X"
     assert_equal(nil , @game.terminal(@game.board))
-    @game.make_move(player, 0, 2)
-    @game.make_move(player, 1, 1)
-    @game.make_move(player, 2, 0)
+    @game.make_move!(player, 0, 2)
+    @game.make_move!(player, 1, 1)
+    @game.make_move!(player, 2, 0)
     assert_equal(player, @game.terminal(@game.board))
   end
 
   def test_terminal_o
     player = "O"
     assert_equal(nil , @game.terminal(@game.board))
-    @game.make_move(player, 0, 2)
-    @game.make_move(player, 1, 1)
-    @game.make_move(player, 2, 0)
+    @game.make_move!(player, 0, 2)
+    @game.make_move!(player, 1, 1)
+    @game.make_move!(player, 2, 0)
     assert_equal(player, @game.terminal(@game.board))
   end
 

@@ -26,7 +26,7 @@ class Game_Logic
     printed_board += "\n"
   end
 
-  def make_move(player, position1, position2)
+  def make_move!(player, position1, position2)
     board[position1][position2] = player
   end
 

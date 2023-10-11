@@ -11,50 +11,50 @@ class Test_algorithm_X < Test::Unit::TestCase
   end
 
   def game_state_one
-    @game.make_move("X", 0, 0)
-    @game.make_move("O", 0, 1)
-    @game.make_move("X", 1, 0)
-    @game.make_move("O", 0, 2)
+    @game.make_move!("X", 0, 0)
+    @game.make_move!("O", 0, 1)
+    @game.make_move!("X", 1, 0)
+    @game.make_move!("O", 0, 2)
   end
 
   def game_state_two
-    @game.make_move("X", 0, 0)
-    @game.make_move("O", 1, 1)
+    @game.make_move!("X", 0, 0)
+    @game.make_move!("O", 1, 1)
   end
 
   def game_state_three
-    @game.make_move("X", 1, 1)
-    @game.make_move("O", 0, 0)
-    @game.make_move("X", 0, 1)
-    @game.make_move("O", 2, 0)
+    @game.make_move!("X", 1, 1)
+    @game.make_move!("O", 0, 0)
+    @game.make_move!("X", 0, 1)
+    @game.make_move!("O", 2, 0)
   end
 
   def game_state_four
-    @game.make_move("X", 0, 0)
-    @game.make_move("O", 1, 1)
-    @game.make_move("X", 0, 1)
-    @game.make_move("O", 0, 2)
+    @game.make_move!("X", 0, 0)
+    @game.make_move!("O", 1, 1)
+    @game.make_move!("X", 0, 1)
+    @game.make_move!("O", 0, 2)
   end
 
   def game_state_five
-    @game.make_move("X", 0, 0)
-    @game.make_move("X", 1, 0)
-    @game.make_move("O", 0, 1)
-    @game.make_move("O", 2, 0)
+    @game.make_move!("X", 0, 0)
+    @game.make_move!("X", 1, 0)
+    @game.make_move!("O", 0, 1)
+    @game.make_move!("O", 2, 0)
   end
 
   def game_state_six
-    @game.make_move("X", 0, 0)
-    @game.make_move("O", 0, 2)
-    @game.make_move("X", 1, 0)
-    @game.make_move("O", 2, 0)
+    @game.make_move!("X", 0, 0)
+    @game.make_move!("O", 0, 2)
+    @game.make_move!("X", 1, 0)
+    @game.make_move!("O", 2, 0)
   end
 
   def game_state_seven
-    @game.make_move("X", 0, 0)
-    @game.make_move("O", 2, 2)
-    @game.make_move("X", 0, 2)
-    @game.make_move("O", 0, 1)
+    @game.make_move!("X", 0, 0)
+    @game.make_move!("O", 2, 2)
+    @game.make_move!("X", 0, 2)
+    @game.make_move!("O", 0, 1)
   end
 
   def test_best_move_state_zero
@@ -108,25 +108,25 @@ class Test_algorithm_O < Test::Unit::TestCase
   end
 
   def game_state_zero
-    @game.make_move("X", 0, 0)
+    @game.make_move!("X", 0, 0)
   end
 
   def game_state_one
-    @game.make_move("X", 0, 0)
-    @game.make_move("O", 1, 1)
-    @game.make_move("X", 2, 2)
+    @game.make_move!("X", 0, 0)
+    @game.make_move!("O", 1, 1)
+    @game.make_move!("X", 2, 2)
   end
 
   def game_state_two
-    @game.make_move("X", 2, 2)
-    @game.make_move("O", 1, 1)
-    @game.make_move("X", 0, 0)
+    @game.make_move!("X", 2, 2)
+    @game.make_move!("O", 1, 1)
+    @game.make_move!("X", 0, 0)
   end
 
   def game_state_three
-    @game.make_move("X", 0, 2)
-    @game.make_move("O", 1, 1)
-    @game.make_move("X", 2, 2)
+    @game.make_move!("X", 0, 2)
+    @game.make_move!("O", 1, 1)
+    @game.make_move!("X", 2, 2)
   end
 
   def test_best_move_zero
@@ -142,8 +142,8 @@ class Test_algorithm_O < Test::Unit::TestCase
   def test_best_move_two
     game_state_two
     assert_equal([0, 1], @ai.return_best_move(@board))
-    @game.make_move("O", 0, 1)
-    @game.make_move("X", 0, 2)
+    @game.make_move!("O", 0, 1)
+    @game.make_move!("X", 0, 2)
     assert_equal([2, 1], @ai.return_best_move(@board))
   end
 

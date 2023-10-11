@@ -41,13 +41,13 @@ class Tic_Tac_Toe
     end
   end
 
-  def check_and_place(player)
+  def check_move!(player)
     move = get_move(player, game.board)
     if game.valid_move?(move, game.board)
-      game.make_move(player, move[0], move[1])
+      game.make_move!(player, move[0], move[1])
     else
       puts "Invalid Move! please try again"
-      check_and_place(player)
+      check_move!(player)
     end
   end
 
@@ -62,7 +62,7 @@ class Tic_Tac_Toe
         break
       end
       puts player_turn_message(player)
-      check_and_place(player)
+      check_move!(player)
       puts game.display_board(game.board)
       player = game.switch_player(player)
     end
