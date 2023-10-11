@@ -163,13 +163,30 @@ class Test_Game_logic < Test::Unit::TestCase
     assert_false(@game.valid_move?([1, 1], @game.board), "already taken")
   end
 
-  def test_terminal
+  def test_terminal_x
     player = "X"
     assert_equal(nil , @game.terminal(@game.board))
     @game.make_move(player, 0, 2)
     @game.make_move(player, 1, 1)
     @game.make_move(player, 2, 0)
-    assert_equal("X", @game.terminal(@game.board))
+    assert_equal(player, @game.terminal(@game.board))
   end
+
+  def test_terminal_o
+    player = "O"
+    assert_equal(nil , @game.terminal(@game.board))
+    @game.make_move(player, 0, 2)
+    @game.make_move(player, 1, 1)
+    @game.make_move(player, 2, 0)
+    assert_equal(player, @game.terminal(@game.board))
+  end
+
+  def test_terminal_draw
+    blank = " "
+    assert_equal(nil , @game.terminal(@game.board))
+    fill_board(@game.board, "X")
+    assert_equal(blank, @game.terminal(@game.board))
+  end
+
 
 end
