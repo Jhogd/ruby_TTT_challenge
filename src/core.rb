@@ -27,7 +27,7 @@ class Tic_Tac_Toe
   end
 
   def self.select_player
-    puts "Please select a 1 or 2 to choose your player\n 1) X\n 2) O"
+    puts "Please enter a 1 or 2 to choose your player\n 1) X\n 2) O"
     player_selector = {"1" => "X", "2" => "O"}
     choice = gets
     player_selector.fetch(choice.strip)

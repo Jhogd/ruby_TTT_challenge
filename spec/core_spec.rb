@@ -41,7 +41,7 @@ class Test_Tic_Tac_toe < Test::Unit::TestCase
       "1\n"
     end
     Tic_Tac_Toe.select_player
-    assert_equal("Please select a 1 or 2 to choose your player\n 1) X\n 2) O", Tic_Tac_Toe.instance_variable_get(:@class_captured_output)[0])
+    assert_equal("Please enter a 1 or 2 to choose your player\n 1) X\n 2) O", Tic_Tac_Toe.instance_variable_get(:@class_captured_output)[0])
     assert_equal("X", Tic_Tac_Toe.select_player)
   end
 
