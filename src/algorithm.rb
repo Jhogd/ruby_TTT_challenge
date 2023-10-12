@@ -57,7 +57,6 @@ class Min_Max_Alg
     best_score
   end
 
-
   def not_maxing(board, depth)
     score = game_score(board)
     return score/depth if score
@@ -69,7 +68,6 @@ class Min_Max_Alg
     end
     best_score
   end
-
 
   def return_best_move(board)
     best_score = -Float::INFINITY

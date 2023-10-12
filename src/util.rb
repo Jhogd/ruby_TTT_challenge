@@ -1,4 +1,3 @@
-
 class Game_Logic
   def initialize(size)
     @board  = Array.new(size) { Array.new(size, ' ')}
@@ -78,7 +77,6 @@ class Game_Logic
     winner[true]
   end
 
-
   def parse_user_input(move_string)
     move_string.chomp.split.map(&:to_i)
 
@@ -94,6 +92,5 @@ class Game_Logic
       within_board_range(move[1]) &&
       board[move[0]][move[1]] == " "
   end
-
 
 end
