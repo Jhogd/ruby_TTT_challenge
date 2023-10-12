@@ -5,7 +5,7 @@ class Tic_Tac_Toe
   def initialize(human_player)
     size = 3
     @game = Game_Logic.new(size)
-    @ai   = Min_Max_Alg.new(@game, @game.switch_player(human_player))
+    @ai = Min_Max_Alg.new(@game, @game.switch_player(human_player))
   end
 
   def game
@@ -17,18 +17,18 @@ class Tic_Tac_Toe
   end
 
   def ending_message(winner)
-    message = {(winner == @ai.ai_player) => "The Ai has won, sorry!", (winner == @ai.human_player) => "You have won!!", (winner == " ") => "The game is a draw"}
+    message = { (winner == @ai.ai_player) => "The Ai has won, sorry!", (winner == @ai.human_player) => "You have won!!", (winner == " ") => "The game is a draw" }
     message[true]
   end
 
   def player_turn_message(player)
-    message = {(player == @ai.ai_player) => "The Ai is choosing a move", (player == @ai.human_player) => "Please enter a valid move i.e 0 0, 1 1, etc.."}
+    message = { (player == @ai.ai_player) => "The Ai is choosing a move", (player == @ai.human_player) => "Please enter a valid move i.e 0 0, 1 1, etc.." }
     message[true]
   end
 
   def self.select_player
     puts "Please enter a 1 or 2 to choose your player\n 1) X\n 2) O"
-    player_selector = {"1" => "X", "2" => "O"}
+    player_selector = { "1" => "X", "2" => "O" }
     choice = gets
     player_selector.fetch(choice.strip)
   end

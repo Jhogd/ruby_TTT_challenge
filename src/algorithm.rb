@@ -34,12 +34,12 @@ class Min_Max_Alg
     end
   end
 
-  def get_score(board, best_score , depth, player, min, i, j)
-    if board[i][j] == " "
-      board[i][j] = player
+  def get_score(board, best_score , depth, player, min, row, col)
+    if board[row][col] == " "
+      board[row][col] = player
       new_board = board
       score = call_maxing_or_not_max(new_board, depth, min)
-      board[i][j] = " "
+      board[row][col] = " "
       best_score = min_or_max([score, best_score], min)
     end
     best_score
@@ -49,21 +49,35 @@ class Min_Max_Alg
     score = game_score(board)
     return score/depth if score
     best_score = -Float::INFINITY
-    board.each_with_index do |row, i|
-      board.each_with_index do |cell, j|
-        best_score = get_score(board, best_score, depth ,ai_player, false, i, j)
+    board.each_with_index do |hor, row|
+      board.each_with_index do |vert, col|
+        best_score = get_score(board, best_score, depth ,ai_player, false, row, col)
       end
     end
     best_score
   end
 
+
+  def minmax(board, starting_score, depth, player, min)
+    score = game_score(board)
+    return score/depth if score
+    best_score = starting_score
+    board.each_with_index do |hor, row|
+      board.each_with_index do |vert, col|
+        best_score = get_score(board, best_score, depth, player, min, row, col)
+      end
+    end
+    best_score
+  end
+
+
   def not_maxing(board, depth)
     score = game_score(board)
     return score/depth if score
     best_score = Float::INFINITY
-    board.each_with_index do |row, i|
-      board.each_with_index do |col, j|
-        best_score = get_score(board, best_score, depth, human_player, true, i, j)
+    board.each_with_index do |hor, row|
+      board.each_with_index do |vert, col|
+        best_score = get_score(board, best_score, depth, human_player, true, row, col)
       end
     end
     best_score
@@ -73,16 +87,16 @@ class Min_Max_Alg
     best_score = -Float::INFINITY
     best_move = nil
     return [0, 0] if @game.board_empty?(board)
-    board.each_with_index do |row, i|
-      board.each_with_index do |col, j|
-        if board[i][j] == " "
-          board[i][j] = ai_player
+    board.each_with_index do |hor, row|
+      board.each_with_index do |vert, col|
+        if board[row][col] == " "
+          board[row][col] = ai_player
           new_board = board
           score = not_maxing(new_board, 1)
-          board[i][j] = " "
+          board[row][col] = " "
           if score > best_score
             best_score = score
-            best_move = [i, j]
+            best_move = [row, col]
           end
         end
       end

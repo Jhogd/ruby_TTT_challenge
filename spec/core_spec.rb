@@ -3,17 +3,18 @@ require_relative '../src/core'
 require_relative '../src/util'
 require_relative '../src/algorithm'
 
-
 class Test_Tic_Tac_toe < Test::Unit::TestCase
 
   def setup
     @ttt = Tic_Tac_Toe.new("X")
     @game = Game_Logic.new(3)
     @ai = Min_Max_Alg.new(@game, "X")
+
     def @ttt.puts(text)
       @captured_output ||= []
       @captured_output << text
     end
+
     def Tic_Tac_Toe.puts(text)
       @class_captured_output ||= []
       @class_captured_output << text
@@ -36,13 +37,24 @@ class Test_Tic_Tac_toe < Test::Unit::TestCase
     assert_equal("Please enter a valid move i.e 0 0, 1 1, etc..", @ttt.player_turn_message("X"))
   end
 
-  def test_select_player
+  def test_select_player_1
     def Tic_Tac_Toe.gets
       "1\n"
     end
+
     Tic_Tac_Toe.select_player
     assert_equal("Please enter a 1 or 2 to choose your player\n 1) X\n 2) O", Tic_Tac_Toe.instance_variable_get(:@class_captured_output)[0])
     assert_equal("X", Tic_Tac_Toe.select_player)
+  end
+
+  def test_select_player_2
+    def Tic_Tac_Toe.gets
+      "2\n"
+    end
+
+    Tic_Tac_Toe.select_player
+    assert_equal("Please enter a 1 or 2 to choose your player\n 1) X\n 2) O", Tic_Tac_Toe.instance_variable_get(:@class_captured_output)[0])
+    assert_equal("O", Tic_Tac_Toe.select_player)
   end
 
   def test_play_game_display
@@ -51,7 +63,8 @@ class Test_Tic_Tac_toe < Test::Unit::TestCase
       @counter += 1
       ["0 1", "0 2", "1 0", "1 1", "1 2", "2 0", "2 1", "2 2"][@counter]
     end
-    #displays board and messages as game updates calls all functions ends with a winner
+
+    # displays board and messages as game updates calls all functions ends with a winner
     new_game = @ttt.game
     board = new_game.board
     assert_equal([[" ", " ", " "], [" ", " ", " "], [" ", " ", " "]], board)
@@ -70,4 +83,4 @@ class Test_Tic_Tac_toe < Test::Unit::TestCase
     assert_true(@ttt.instance_variable_get(:@captured_output).include?("The Ai has won, sorry!"))
   end
 
-  end
+end
