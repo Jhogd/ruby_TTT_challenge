@@ -64,7 +64,7 @@ class Game_Logic
   end
 
   def check_win(board, player)
-    check_win_hor_vert(board, player) or
+      check_win_hor_vert(board, player) or
       check_win_hor_vert(board.transpose, player) or
       check_win_diags(board, player)
   end
