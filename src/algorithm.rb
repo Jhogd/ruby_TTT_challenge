@@ -57,20 +57,6 @@ class Min_Max_Alg
     best_score
   end
 
-
-  def minmax(board, starting_score, depth, player, min)
-    score = game_score(board)
-    return score/depth if score
-    best_score = starting_score
-    board.each_with_index do |hor, row|
-      board.each_with_index do |vert, col|
-        best_score = get_score(board, best_score, depth, player, min, row, col)
-      end
-    end
-    best_score
-  end
-
-
   def not_maxing(board, depth)
     score = game_score(board)
     return score/depth if score
